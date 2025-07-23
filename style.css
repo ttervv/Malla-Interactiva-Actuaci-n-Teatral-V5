@@ -1,52 +1,61 @@
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #e7f6e7;
+/* Color de texto */
+body, h1, h2, h3, h4, h5, h6, p, label {
   color: #3a2f6b;
-  margin: 0;
-  padding: 20px;
+  font-family: 'Arial', sans-serif;
 }
 
-h1 {
-  text-align: center;
-  color: #3a2f6b;
-  margin-bottom: 30px;
+/* Contenedor de semestres - para alinear en fila */
+.container-semestres {
+  display: flex;
+  flex-wrap: wrap; /* para que bajen si no caben */
+  gap: 1rem;
+  justify-content: flex-start;
 }
 
+/* Cuadros de semestre */
 .semestre {
   background-color: #41a0ae;
   border: 2px solid #36669c;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 800px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 280px; /* ajusta según tu preferencia */
+  box-sizing: border-box;
+  margin-bottom: 1rem;
 }
 
-.semestre h2 {
-  margin-top: 0;
-  color: #ffffff;
-}
-
+/* Ramos normales */
 .ramo {
   background-color: #3ec995;
-  border: 1px solid #36669c;
-  border-radius: 8px;
-  padding: 10px 15px;
-  margin: 10px 0;
+  border: 2px solid #36669c;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s, text-decoration 0.3s;
-  color: #ffffff;
+  transition: background-color 0.3s ease;
 }
 
-.ramo.disabled {
-  background-color: #e0e0e0;
-  color: #9e9e9e;
+/* Ramos bloqueados */
+.ramo.bloqueado {
+  border: 2px dashed white; /* borde punteado blanco */
+  background-color: #3ec995; /* mismo fondo */
+  color: rgba(58, 47, 107, 0.6); /* texto más claro para diferenciar */
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
-.ramo.aprobado {
-  text-decoration: line-through;
-  background-color: #a5d6a7;
+/* Ajustes para texto y layout interno */
+.semestre h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
   color: #3a2f6b;
+}
+
+.ramo span {
+  user-select: none;
+}
+
+/* Scroll horizontal si hay muchos semestres */
+.container-semestres {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
 }
