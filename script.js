@@ -122,23 +122,29 @@ function crearMalla() {
       div.textContent = ramo.nombre;
       div.dataset.id = ramo.id;
 
+      // Requisitos inversos (quién desbloquea a este ramo)
       const requisitos = obtenerRequisitos(ramo.id);
+
+      // Estado guardado o inicial
+      const aprobado = localStorage.getItem(ramo.id) === "true";
       estado[ramo.id] = {
-        aprobado: localStorage.getItem(ramo.id) === "true",
+        aprobado: aprobado,
         deps: requisitos,
       };
 
+      // ¿Requisitos aprobados?
       const depsAprobados = requisitos.every(dep => localStorage.getItem(dep) === "true");
 
-      if (!estado[ramo.id].aprobado && !depsAprobados) {
+      if (!aprobado && !depsAprobados) {
         div.classList.add("disabled");
       } else {
-        if (estado[ramo.id].aprobado) {
+        if (aprobado) {
           div.classList.add("aprobado");
         }
       }
 
       div.onclick = () => aprobarRamo(ramo.id);
+
       semDiv.appendChild(div);
     });
 
