@@ -41,6 +41,7 @@ const ramos = [
       { nombre: "Taller de Dramaturgia", id: "dramaturgia", abre: ["creacion_dram"] },
       { nombre: "Introducción a la Investigación en el Arte", id: "investigacion_arte", abre: ["actoral1"] },
       { nombre: "Práctica de Observación II", id: "observacion2" }
+      { nombre: "CFG", id: "cfg4" }
     ]
   },
   {
