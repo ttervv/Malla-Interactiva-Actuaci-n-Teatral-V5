@@ -40,9 +40,9 @@ const ramos = [
       { nombre: "Taller de Dirección", id: "direccion", abre: ["seminario_dir"] },
       { nombre: "Taller de Dramaturgia", id: "dramaturgia", abre: ["creacion_dram"] },
       { nombre: "Introducción a la Investigación en el Arte", id: "investigacion_arte", abre: ["actoral1"] },
-      { nombre: "Práctica de Observación II", id: "observacion2" }
-      { nombre: "CFG 2", id: "cfg4" }
-      { nombre: "Inglés IV", id: "ing4" }
+      { nombre: "Práctica de Observación II", id: "observacion2" },
+      { nombre: "Inglés IV", id: "ing4" },
+      { nombre: "CFG 2", id: "cfg2" }
     ]
   },
   {
@@ -124,7 +124,7 @@ function crearMalla() {
       div.textContent = ramo.nombre;
       div.dataset.id = ramo.id;
 
-      // Requisitos inversos (quién desbloquea a este ramo)
+      // Obtiene requisitos (quién desbloquea este ramo)
       const requisitos = obtenerRequisitos(ramo.id);
 
       // Estado guardado o inicial
