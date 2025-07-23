@@ -1,29 +1,26 @@
-/* Color de texto */
 body, h1, h2, h3, h4, h5, h6, p, label {
   color: #3a2f6b;
   font-family: 'Arial', sans-serif;
 }
 
-/* Contenedor de semestres - para alinear en fila */
 .container-semestres {
   display: flex;
-  flex-wrap: wrap; /* para que bajen si no caben */
+  flex-wrap: nowrap;
   gap: 1rem;
-  justify-content: flex-start;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
 }
 
-/* Cuadros de semestre */
 .semestre {
   background-color: #41a0ae;
   border: 2px solid #36669c;
   border-radius: 8px;
   padding: 1rem;
-  width: 280px; /* ajusta según tu preferencia */
+  width: 280px;
   box-sizing: border-box;
-  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
-/* Ramos normales */
 .ramo {
   background-color: #3ec995;
   border: 2px solid #36669c;
@@ -34,28 +31,16 @@ body, h1, h2, h3, h4, h5, h6, p, label {
   transition: background-color 0.3s ease;
 }
 
-/* Ramos bloqueados */
 .ramo.bloqueado {
-  border: 2px dashed white; /* borde punteado blanco */
-  background-color: #3ec995; /* mismo fondo */
-  color: rgba(58, 47, 107, 0.6); /* texto más claro para diferenciar */
+  border: 2px dashed white;
+  background-color: #3ec995;
+  color: rgba(58, 47, 107, 0.6);
   cursor: not-allowed;
   opacity: 0.7;
 }
 
-/* Ajustes para texto y layout interno */
 .semestre h3 {
   margin-top: 0;
   margin-bottom: 1rem;
   color: #3a2f6b;
-}
-
-.ramo span {
-  user-select: none;
-}
-
-/* Scroll horizontal si hay muchos semestres */
-.container-semestres {
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
 }
