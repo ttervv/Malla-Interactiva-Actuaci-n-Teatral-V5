@@ -52,8 +52,8 @@ body {
 /* Ramo bloqueado */
 .ramo.disabled {
   background-color: #ffffff;
-  border: 2px dashed #36669c;
-  color: #c6ccc6;
+  border: 2px dashed #3ec995; /* borde punteado color clanco */
+  color: #c6ccc6; /* texto blanco para bloqueado */
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.6;
