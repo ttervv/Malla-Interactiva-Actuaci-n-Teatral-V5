@@ -1,112 +1,128 @@
-const ramos = [
-  // Primer año
-  { nombre: "Acción y Teatralidad", reqs: [] },
-  { nombre: "Autoconocimiento Actoral", reqs: [] },
-  { nombre: "Teoría de la Representación", reqs: [] },
-  { nombre: "Análisis Dramatúrgico I", reqs: [] },
-  { nombre: "Tutoría I", reqs: [] },
-  { nombre: "Historia del Arte", reqs: [] },
-  { nombre: "Inglés I", reqs: [] },
+const ramos = {
+  // Semestre 1
+  "Acción y Teatralidad": [],
+  "Autoconocimiento Actoral": [],
+  "Teoría de la Representación": [],
+  "Análisis Dramatúrgico I": [],
+  "Tutoría I": [],
+  "Historia del Arte": [],
+  "Inglés I": [],
+  // Semestre 2
+  "Creación de Personaje": [],
+  "El Actor y el Colectivo": [],
+  "Teoría del Teatro": [],
+  "Análisis Dramatúrgico II": ["Análisis Dramatúrgico I"],
+  "Tutoría II": ["Tutoría I"],
+  "Estética": ["Historia del Arte"],
+  "Inglés II": ["Inglés I"],
+  // Semestre 3
+  "Personaje e Investigación": ["Acción y Teatralidad", "Creación de Personaje"],
+  "Análisis Escénico": [],
+  "Práctica de Observación I": [],
+  "Inglés III": ["Inglés II"],
+  "CFG": [],
+  // Semestre 4
+  "Puesta en Escena": ["Personaje e Investigación"],
+  "Taller de Dirección": ["Teoría de la Representación", "Teoría del Teatro"],
+  "Taller de Dramaturgia": [],
+  "Introducción a la Investigación en el Arte": ["Análisis Escénico", "Personaje e Investigación"],
+  "Práctica de Observación II": ["Práctica de Observación I"],
+  // Semestre 5
+  "Creación Actoral I": ["Puesta en Escena", "Introducción a la Investigación en el Arte"],
+  "Investigación Interdisciplinar": [],
+  "Didáctica del Teatro I": [],
+  "Metodología de la Investigación": [],
+  "Curso Electivo I": [],
+  "Curso Electivo II": [],
+  "Taller Interdisciplinario": ["Puesta en Escena"],
+  // Semestre 6
+  "Creación Actoral II": ["Creación Actoral I"],
+  "Creación Interdisciplinar": ["Investigación Interdisciplinar"],
+  "Didáctica del Teatro II": ["Didáctica del Teatro I"],
+  "Investigación Teatral": ["Metodología de la Investigación"],
+  "Curso Electivo III": [],
+  "Curso Electivo IV": [],
+  // Semestre 7
+  "Creación Actoral III": ["Creación Actoral II"],
+  "Seminario de Dirección": ["Taller de Dirección"],
+  "Creación Dramatúrgica": ["Taller de Dramaturgia"],
+  "Tutoría de Investigación Aplicada I": [],
+  "Curso Electivo V": [],
+  "Curso Electivo VI": [],
+  // Semestre 8
+  "Creación Actoral IV": ["Creación Actoral III"],
+  "Creación Escénica": ["Seminario de Dirección", "Creación Dramatúrgica"],
+  "Tutoría de Investigación Aplicada II": ["Tutoría de Investigación Aplicada I"],
+  "Curso Electivo VII": [],
+  "Curso Electivo VIII": [],
+  // Semestre 9
+  "Práctica Profesional": ["Creación Actoral IV", "Tutoría de Investigación Aplicada II"],
+  "Tutoría de Práctica": ["Creación Actoral IV", "Tutoría de Investigación Aplicada II"],
+  // Semestre 10
+  "Taller de Memoria": ["Práctica Profesional", "Tutoría de Práctica"],
+};
 
-  { nombre: "Creación de Personaje", reqs: [] },
-  { nombre: "El Actor y el Colectivo", reqs: [] },
-  { nombre: "Teoría del Teatro", reqs: [] },
-  { nombre: "Análisis Dramatúrgico II", reqs: ["Análisis Dramatúrgico I"] },
-  { nombre: "Tutoría II", reqs: ["Tutoría I"] },
-  { nombre: "Estética", reqs: ["Historia del Arte"] },
-  { nombre: "Inglés II", reqs: ["Inglés I"] },
-
-  // Segundo año
-  { nombre: "Personaje e Investigación", reqs: ["Acción y Teatralidad", "Creación de Personaje"] },
-  { nombre: "Análisis Escénico", reqs: [] },
-  { nombre: "Práctica de Observación I", reqs: [] },
-  { nombre: "Inglés III", reqs: ["Inglés II"] },
-  { nombre: "CFG", reqs: [] },
-
-  { nombre: "Puesta en Escena", reqs: ["Personaje e Investigación"] },
-  { nombre: "Taller de Dirección", reqs: ["Teoría del Teatro", "Teoría de la Representación"] },
-  { nombre: "Taller de Dramaturgia", reqs: [] },
-  { nombre: "Introducción a la Investigación en el Arte", reqs: ["Personaje e Investigación", "Análisis Escénico"] },
-  { nombre: "Práctica de Observación II", reqs: ["Práctica de Observación I"] },
-
-  // Tercer año
-  { nombre: "Creación Actoral I", reqs: ["Puesta en Escena", "Introducción a la Investigación en el Arte"] },
-  { nombre: "Investigación Interdisciplinar", reqs: [] },
-  { nombre: "Didáctica del Teatro I", reqs: [] },
-  { nombre: "Metodología de la Investigación", reqs: [] },
-  { nombre: "Electivo Disciplinar 1", reqs: [] },
-  { nombre: "Electivo Disciplinar 2", reqs: [] },
-  { nombre: "Taller Interdisciplinario", reqs: ["Puesta en Escena"] },
-
-  { nombre: "Creación Actoral II", reqs: ["Creación Actoral I"] },
-  { nombre: "Creación Interdisciplinar", reqs: ["Investigación Interdisciplinar"] },
-  { nombre: "Didáctica del Teatro II", reqs: ["Didáctica del Teatro I"] },
-  { nombre: "Investigación Teatral", reqs: ["Metodología de la Investigación"] },
-  { nombre: "Electivo Disciplinar 3", reqs: [] },
-  { nombre: "Electivo Disciplinar 4", reqs: [] },
-
-  // Cuarto año
-  { nombre: "Creación Actoral III", reqs: ["Creación Actoral II"] },
-  { nombre: "Seminario de Dirección", reqs: ["Taller de Dirección"] },
-  { nombre: "Creación Dramatúrgica", reqs: ["Taller de Dramaturgia"] },
-  { nombre: "Tutoría Investigación Aplicada I", reqs: [] },
-  { nombre: "Electivo Disciplinar 5", reqs: [] },
-  { nombre: "Electivo Disciplinar 6", reqs: [] },
-
-  { nombre: "Creación Actoral IV", reqs: ["Creación Actoral III"] },
-  { nombre: "Creación Escénica", reqs: ["Seminario de Dirección", "Creación Dramatúrgica"] },
-  { nombre: "Tutoría Investigación Aplicada II", reqs: ["Tutoría Investigación Aplicada I"] },
-  { nombre: "Electivo Disciplinar 7", reqs: [] },
-  { nombre: "Electivo Disciplinar 8", reqs: [] },
-
-  // Quinto año
-  { nombre: "Práctica Profesional", reqs: ["Creación Actoral IV", "Tutoría Investigación Aplicada II"] },
-  { nombre: "Tutoría de Práctica", reqs: ["Creación Actoral IV", "Tutoría Investigación Aplicada II"] },
-
-  { nombre: "Taller de Memoria", reqs: ["Práctica Profesional", "Tutoría de Práctica"] }
+const semestres = [
+  ["Acción y Teatralidad", "Autoconocimiento Actoral", "Teoría de la Representación", "Análisis Dramatúrgico I", "Tutoría I", "Historia del Arte", "Inglés I"],
+  ["Creación de Personaje", "El Actor y el Colectivo", "Teoría del Teatro", "Análisis Dramatúrgico II", "Tutoría II", "Estética", "Inglés II"],
+  ["Personaje e Investigación", "Análisis Escénico", "Práctica de Observación I", "Inglés III", "CFG"],
+  ["Puesta en Escena", "Taller de Dirección", "Taller de Dramaturgia", "Introducción a la Investigación en el Arte", "Práctica de Observación II"],
+  ["Creación Actoral I", "Investigación Interdisciplinar", "Didáctica del Teatro I", "Metodología de la Investigación", "Curso Electivo I", "Curso Electivo II", "Taller Interdisciplinario"],
+  ["Creación Actoral II", "Creación Interdisciplinar", "Didáctica del Teatro II", "Investigación Teatral", "Curso Electivo III", "Curso Electivo IV"],
+  ["Creación Actoral III", "Seminario de Dirección", "Creación Dramatúrgica", "Tutoría de Investigación Aplicada I", "Curso Electivo V", "Curso Electivo VI"],
+  ["Creación Actoral IV", "Creación Escénica", "Tutoría de Investigación Aplicada II", "Curso Electivo VII", "Curso Electivo VIII"],
+  ["Práctica Profesional", "Tutoría de Práctica"],
+  ["Taller de Memoria"],
 ];
 
-function crearMalla() {
-  const contenedor = document.getElementById("malla");
+const aprobados = new Set();
 
-  ramos.forEach(ramo => {
-    const div = document.createElement("div");
-    div.classList.add("ramo");
-    div.innerText = ramo.nombre;
-    if (ramo.reqs.length > 0) {
-      div.classList.add("locked");
-    }
-    div.addEventListener("click", () => toggleRamo(ramo.nombre, div));
-    contenedor.appendChild(div);
-  });
-
-  actualizarEstado();
+function createRamo(nombre) {
+  const div = document.createElement("div");
+  div.className = "ramo disabled";
+  div.textContent = nombre;
+  div.dataset.nombre = nombre;
+  div.addEventListener("click", () => toggleRamo(div));
+  return div;
 }
 
-function toggleRamo(nombre, div) {
-  if (div.classList.contains("locked")) return;
-  div.classList.toggle("aprobado");
-  actualizarEstado();
+function toggleRamo(div) {
+  const nombre = div.dataset.nombre;
+  if (!div.classList.contains("disabled")) {
+    if (div.classList.contains("aprobado")) {
+      div.classList.remove("aprobado");
+      aprobados.delete(nombre);
+    } else {
+      div.classList.add("aprobado");
+      aprobados.add(nombre);
+    }
+    actualizarEstado();
+  }
 }
 
 function actualizarEstado() {
-  const aprobados = new Set(
-    Array.from(document.querySelectorAll(".ramo.aprobado")).map(r => r.innerText)
-  );
-
   document.querySelectorAll(".ramo").forEach(div => {
-    const ramo = ramos.find(r => r.nombre === div.innerText);
-    const requisitos = ramo.reqs;
-    const desbloqueado = requisitos.every(req => aprobados.has(req));
-
-    if (!div.classList.contains("aprobado")) {
-      if (requisitos.length === 0 || desbloqueado) {
-        div.classList.remove("locked");
-      } else {
-        div.classList.add("locked");
-      }
+    const nombre = div.dataset.nombre;
+    const requisitos = ramos[nombre] || [];
+    const habilitado = requisitos.every(req => aprobados.has(req));
+    if (habilitado) {
+      div.classList.remove("disabled");
+    } else {
+      div.classList.add("disabled");
     }
   });
 }
 
-document.addEventListener("DOMContentLoaded", crearMalla);
+function construirMalla() {
+  const contenedor = document.getElementById("malla-container");
+  semestres.forEach((sem, i) => {
+    const semestreDiv = document.createElement("div");
+    semestreDiv.className = "semestre";
+    semestreDiv.innerHTML = `<h2>Semestre ${i + 1}</h2>`;
+    sem.forEach(ramo => semestreDiv.appendChild(createRamo(ramo)));
+    contenedor.appendChild(semestreDiv);
+  });
+  actualizarEstado();
+}
+
+document.addEventListener("DOMContentLoaded", construirMalla);
