@@ -38,12 +38,12 @@ h1 {
 }
 
 .ramo.disabled {
-  background-color: #e0e0e0;
-  color: #9e9e9e;
+  background-color: #c4efdf;
+  color: #76a5af;
   cursor: not-allowed;
 }
 
 .ramo.aprobado {
   text-decoration: line-through;
-  background-color: #c5e1a5;
+  background-color: #41a0ae;
 }
