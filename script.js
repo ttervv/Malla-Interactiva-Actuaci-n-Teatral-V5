@@ -118,15 +118,24 @@ function crearMalla() {
 
     sem.ramos.forEach((ramo) => {
       const div = document.createElement("div");
-      div.className = "ramo disabled";
+      div.className = "ramo";
       div.textContent = ramo.nombre;
       div.dataset.id = ramo.id;
 
-      const aprobado = localStorage.getItem(ramo.id) === "true";
-      estado[ramo.id] = { aprobado: aprobado, deps: ramo.abre || [] };
-      if (aprobado) {
-        div.classList.add("aprobado");
-        div.classList.remove("disabled");
+      const requisitos = obtenerRequisitos(ramo.id);
+      estado[ramo.id] = {
+        aprobado: localStorage.getItem(ramo.id) === "true",
+        deps: requisitos,
+      };
+
+      const depsAprobados = requisitos.every(dep => localStorage.getItem(dep) === "true");
+
+      if (!estado[ramo.id].aprobado && !depsAprobados) {
+        div.classList.add("disabled");
+      } else {
+        if (estado[ramo.id].aprobado) {
+          div.classList.add("aprobado");
+        }
       }
 
       div.onclick = () => aprobarRamo(ramo.id);
@@ -135,8 +144,18 @@ function crearMalla() {
 
     container.appendChild(semDiv);
   });
+}
 
-  actualizarDesbloqueos();
+function obtenerRequisitos(idRamo) {
+  const requisitos = [];
+  ramos.forEach(sem => {
+    sem.ramos.forEach(ramo => {
+      if (ramo.abre && ramo.abre.includes(idRamo)) {
+        requisitos.push(ramo.id);
+      }
+    });
+  });
+  return requisitos;
 }
 
 function aprobarRamo(id) {
@@ -176,4 +195,7 @@ function actualizarDesbloqueos() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", crearMalla);
+document.addEventListener("DOMContentLoaded", () => {
+  crearMalla();
+  actualizarDesbloqueos();
+});
