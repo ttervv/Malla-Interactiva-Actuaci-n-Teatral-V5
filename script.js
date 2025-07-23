@@ -106,6 +106,8 @@ const estado = {};
 
 function crearMalla() {
   const container = document.getElementById("malla-container");
+  container.innerHTML = "";
+
   ramos.forEach((sem) => {
     const semDiv = document.createElement("div");
     semDiv.className = "semestre";
@@ -119,38 +121,59 @@ function crearMalla() {
       div.className = "ramo disabled";
       div.textContent = ramo.nombre;
       div.dataset.id = ramo.id;
+
+      const aprobado = localStorage.getItem(ramo.id) === "true";
+      estado[ramo.id] = { aprobado: aprobado, deps: ramo.abre || [] };
+      if (aprobado) {
+        div.classList.add("aprobado");
+        div.classList.remove("disabled");
+      }
+
       div.onclick = () => aprobarRamo(ramo.id);
       semDiv.appendChild(div);
-
-      estado[ramo.id] = { aprobado: false, deps: ramo.abre || [] };
     });
 
     container.appendChild(semDiv);
   });
 
-  document.querySelectorAll(".ramo").forEach((el) => {
-    const id = el.dataset.id;
-    const tieneRequisitos = ramos.some((sem) =>
-      sem.ramos.some((r) => (r.abre || []).includes(id))
-    );
-    if (!tieneRequisitos) el.classList.remove("disabled");
-  });
+  actualizarDesbloqueos();
 }
 
 function aprobarRamo(id) {
   const div = document.querySelector(`[data-id='${id}']`);
   if (div.classList.contains("disabled")) return;
 
-  estado[id].aprobado = true;
-  div.classList.add("aprobado");
+  estado[id].aprobado = !estado[id].aprobado;
 
-  for (const [clave, dato] of Object.entries(estado)) {
-    if (dato.deps.includes(id)) {
-      const el = document.querySelector(`[data-id='${clave}']`);
-      const depsAprobados = dato.deps.every((dep) => estado[dep]?.aprobado);
-      if (depsAprobados) el.classList.remove("disabled");
-    }
+  if (estado[id].aprobado) {
+    div.classList.add("aprobado");
+  } else {
+    div.classList.remove("aprobado");
   }
+
+  localStorage.setItem(id, estado[id].aprobado);
+
+  actualizarDesbloqueos();
 }
 
-crearMalla();
+function actualizarDesbloqueos() {
+  Object.entries(estado).forEach(([id, dato]) => {
+    const div = document.querySelector(`[data-id='${id}']`);
+    if (!div) return;
+
+    const depsAprobados = dato.deps.every(dep => estado[dep]?.aprobado);
+
+    if (depsAprobados) {
+      div.classList.remove("disabled");
+    } else {
+      div.classList.add("disabled");
+      if (dato.aprobado) {
+        dato.aprobado = false;
+        div.classList.remove("aprobado");
+        localStorage.setItem(id, false);
+      }
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", crearMalla);
